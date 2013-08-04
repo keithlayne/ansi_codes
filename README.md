@@ -1,6 +1,6 @@
 # AnsiCodes
 
-TODO: Write a gem description
+ANSI state and county codes.
 
 ## Installation
 
