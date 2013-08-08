@@ -7,9 +7,9 @@ Gem::Specification.new do |spec|
   spec.name          = "ansi_codes"
   spec.version       = AnsiCodes::VERSION
   spec.authors       = ["Keith Layne"]
-  spec.email         = ["klayne@trupointpartners.com"]
+  spec.email         = ["keith@laynes.org"]
   spec.description   = %q{ANSI state and county codes.}
-  spec.summary       = %q{}
+  spec.summary       = %q{AnsiCodes allows lookup of ANSI US state and county (parish, etc.) codes through a simple API.}
   spec.homepage      = "https://github.com/keithlayne/ansi_codes"
   spec.license       = "MIT"
 
