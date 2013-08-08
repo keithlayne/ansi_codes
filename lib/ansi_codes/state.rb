@@ -17,7 +17,31 @@ module AnsiCodes
     end
 
     def counties
+      County.all(self)
+    end
 
+    def self.find(value)
+      case value
+      when Fixnum
+        value = '%02d' % value
+        selector = :ansi_code
+      when String
+        begin
+          Integer(value, 10)
+          selector = :ansi_code
+        rescue ArgumentError
+          selector = value.size == 2 ? :abbreviation : :name
+        end
+      else raise(ArgumentError, 'Argument must be an integer or a string.')
+      end
+      @states[selector][value.downcase].tap do |result|
+        raise(RuntimeError, "No state found for lookup '#{value}'") unless result
+        yield result if block_given?
+      end
+    end
+
+    def self.all
+      @states[:ansi_code].values
     end
 
     @states = { ansi_code: {}, name: {}, abbreviation: {} }
@@ -28,30 +52,6 @@ module AnsiCodes
     end
     @states.values.map &:freeze
     @states.freeze
-
-    def self.find(value)
-      case value
-      when Fixnum
-        value = '%02d' % value
-        selector = :ansi_code
-      when String
-        begin
-          Integer(value)
-          selector = :ansi_code
-        rescue ArgumentError
-          selector = value.size == 2 ? :abbreviation : :name
-        end
-      else
-        raise(ArgumentError, 'Argument must be an integer or a string.')
-      end
-      @states[selector][value.downcase].tap do |result|
-        raise(RuntimeError, "No state found for lookup '#{value}'") unless result
-        yield result if block_given?
-      end
-    end
-
-    def self.all
-      @all ||= @states[:ansi_code].values
-    end
+    freeze
   end
 end

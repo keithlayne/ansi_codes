@@ -1,3 +1,13 @@
+begin
+  require 'simplecov'
+  SimpleCov.start do
+    add_filter '/spec/'
+    add_filter {|source| source.lines.count < 10}
+  end
+rescue LoadError
+  STDERR.puts 'SimpleCov not installed.  Not generating coverage report.'
+end
+
 require 'ansi_codes'
 
 RSpec.configure do |config|

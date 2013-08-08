@@ -5,10 +5,20 @@ describe AnsiCodes::State do
     expect{AnsiCodes::State.new('01', 'AL', 'Alabame')}.to raise_error(RuntimeError)
   end
 
+  it 'should not be modifiable' do
+    expect{AnsiCodes::State.extend Module.new}.to raise_error
+  end
+
   describe '#ansi_code' do
     it 'should return a two-digit string' do
       AnsiCodes::State.all.each do |state|
         state.ansi_code.should match(/^[0-9]{2}$/)
+      end
+    end
+
+    it 'should return the same state when result is looked up' do
+      AnsiCodes::State.all.each do |state|
+        AnsiCodes::State.find(state.ansi_code).should be(state)
       end
     end
   end
@@ -25,12 +35,24 @@ describe AnsiCodes::State do
         state.name.should match(/^[A-Z].*[a-z]/)
       end
     end
+
+    it 'should return the same state when result is looked up' do
+      AnsiCodes::State.all.each do |state|
+        AnsiCodes::State.find(state.name).should be(state)
+      end
+    end
   end
 
   describe '#abbreviation' do
     it 'should return a two-character uppercase string' do
       AnsiCodes::State.all.each do |state|
         state.abbreviation.should match(/^[A-Z]{2}$/)
+      end
+    end
+
+    it 'should return the same state when result is looked up' do
+      AnsiCodes::State.all.each do |state|
+        AnsiCodes::State.find(state.abbreviation).should be(state)
       end
     end
   end
@@ -45,7 +67,7 @@ describe AnsiCodes::State do
     end
   end
 
-  describe 'all' do
+  describe '.all' do
     it 'should return 57 elements' do
       AnsiCodes::State.all.should have(57).items
     end
@@ -61,7 +83,7 @@ describe AnsiCodes::State do
     end
   end
 
-  describe 'find' do
+  describe '.find' do
     it 'should raise ArgumentError with no arguments' do
       expect{AnsiCodes::State.find}.to raise_error(ArgumentError)
     end
@@ -89,6 +111,14 @@ describe AnsiCodes::State do
     it 'should be case-insensitive' do
       AnsiCodes::State.find('wi').should == AnsiCodes::State.find('WI')
       AnsiCodes::State.find('NEW JERSEY').should == AnsiCodes::State.find('nEw JeRsEy')
+    end
+
+    it 'should raise an ArgumentError on any other type as second param' do
+      expect{AnsiCodes::State.find nil}.to raise_error(ArgumentError)
+      expect{AnsiCodes::State.find 1.0}.to raise_error(ArgumentError)
+      expect{AnsiCodes::State.find /really?/}.to raise_error(ArgumentError)
+      expect{AnsiCodes::State.find {}}.to raise_error(ArgumentError)
+      expect{AnsiCodes::State.find []}.to raise_error(ArgumentError)
     end
 
     it 'should raise a RuntimeError if no match is found' do
