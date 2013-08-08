@@ -1,5 +1,5 @@
-require "ansi_codes/version"
+require 'ansi_codes/version'
+require 'ansi_codes/state'
+require 'ansi_codes/county'
 
-module AnsiCodes
-  # Your code goes here...
-end
+module AnsiCodes; end
