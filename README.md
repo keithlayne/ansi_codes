@@ -1,6 +1,8 @@
 # AnsiCodes
-
 ANSI state and county codes.
+
+[![Gem Version](https://badge.fury.io/rb/ansi_codes.png)](http://badge.fury.io/rb/ansi_codes)
+[![Build Status](https://travis-ci.org/keithlayne/ansi_codes.png?branch=master,develop)(https://travis-ci.org/keithlayne/ansi_codes)
 
 ## Installation
 
