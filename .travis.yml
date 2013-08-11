@@ -2,6 +2,10 @@ language: ruby
 rvm:
   - 1.9.3
   - 2.0.0
+gemfile:
+  - Gemfile
+  - gemfiles/activemodel3.gemfile
+  - gemfiles/activemodel4.gemfile
 notifications:
   email:
     - keith@laynes.org
