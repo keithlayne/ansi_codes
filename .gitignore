@@ -38,3 +38,4 @@ Session.vim
 .ruby-gemset
 .ruby-version
 bin
+gemfiles/*.gemfile.lock
